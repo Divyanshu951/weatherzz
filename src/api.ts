@@ -7,5 +7,6 @@ export async function getWeather({ lat, lon }: { lat: string; lon: string }) {
     `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&units=imperial&exclude=minutely,alerts&appid=${API_KEY}`,
   );
   const data = await res.json();
+  console.log(data);
   return WeatherSchema.parse(data);
 }
