@@ -3,11 +3,16 @@ import Card from "./Card";
 import { getWeather } from "../../api";
 import type { JSX } from "react";
 import WeatherIcon from "../WeatherIcon";
+import type { Coords } from "../../types";
 
-export default function DailyForecast(): JSX.Element {
+type Props = {
+  coords: Coords;
+};
+
+export default function DailyForecast({ coords }: Props): JSX.Element {
   const { data } = useSuspenseQuery({
-    queryKey: ["weather"],
-    queryFn: () => getWeather({ lat: "33.44", lon: "-94.04" }),
+    queryKey: ["weather", coords.lat, coords.lng],
+    queryFn: () => getWeather({ lat: coords.lat, lng: coords.lng }),
   });
 
   return (

@@ -2,11 +2,16 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { getWeather } from "../../api";
 import Card from "./Card";
 import WeatherIcon from "../WeatherIcon";
+import type { Coords } from "../../types";
 
-export default function CurrentForecast() {
+type Props = {
+  coords: Coords;
+};
+
+export default function CurrentForecast({ coords }: Props) {
   const { data } = useSuspenseQuery({
-    queryKey: ["weather"],
-    queryFn: () => getWeather({ lat: "33.44", lon: "-94.04" }),
+    queryKey: ["weather", coords.lat, coords.lng],
+    queryFn: () => getWeather({ lat: coords.lat, lng: coords.lng }),
   });
 
   const localTime = new Intl.DateTimeFormat("en-US", {
@@ -20,7 +25,7 @@ export default function CurrentForecast() {
     <Card title="Current Forecast" childrenClassName="">
       <div className="flex flex-col items-center gap-6">
         <h2 className="text-center text-6xl font-semibold">
-          {data.current.temp}
+          {data.current.temp}°F
         </h2>
         <WeatherIcon src={data.current.weather[0].icon} className="size-14" />
         <h3 className="text-xl capitalize">
