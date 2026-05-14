@@ -12,7 +12,7 @@ export default function Card({
   children,
 }: CardProps) {
   return (
-    <div className="flex flex-col gap-4 rounded-xl bg-zinc-900 p-6 text-slate-50 shadow-md">
+    <div className="from-card to-card/60 flex flex-col gap-4 rounded-xl bg-linear-to-br p-6 text-slate-50 shadow-md">
       <h2>{title}</h2>
       <div className={childrenClassName}>{children}</div>
     </div>

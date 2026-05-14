@@ -10,6 +10,7 @@ export default function Map({ coords, onMapClick }: Props) {
   const { lat, lng } = coords;
   return (
     <MapContainer
+      className="z-0"
       center={[lat, lng]}
       zoom={18}
       style={{ height: "1000px", width: "1000px" }}
