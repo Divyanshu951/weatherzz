@@ -18,11 +18,12 @@ import SidePanel from "./components/SidePanel";
 
 function App() {
   const [coordinates, setCoords] = useState<Coords>({
-    lat: 17.55949979389601,
-    lng: 78.36547851562501,
+    lat: 28.8,
+    lng: 77.03,
   });
-  const [location, setLocation] = useState("Tokyo");
+  const [location, setLocation] = useState("custom");
   const [mapType, setMapType] = useState("clouds_new");
+  const [isSidePanelOpen, setIsSidePanelOpen] = useState(true);
 
   const { data: geoCodeData } = useQuery({
     queryKey: ["geocode", location],
@@ -41,7 +42,7 @@ function App() {
 
   return (
     <>
-      <div className="flex flex-col gap-8">
+      <div className="flex w-full flex-col gap-8 lg:w-[calc(100vw-var(--sidebar-width))]">
         <div className="flex gap-6">
           <div className="flex items-center gap-4">
             <h2 className="text-2xl font-semibold">Location: </h2>
@@ -69,7 +70,11 @@ function App() {
           <AdditionalInfo coords={coords} />
         </Suspense>
       </div>
-      <SidePanel coords={coords} />
+      <SidePanel
+        coords={coords}
+        isSidePanelOpen={isSidePanelOpen}
+        setIsSidePanelOpen={setIsSidePanelOpen}
+      />
     </>
   );
 }

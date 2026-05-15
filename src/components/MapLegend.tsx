@@ -10,7 +10,6 @@ export default function MapLegend({ mapType }: Props) {
   const gradientStops = data.stops
     .map((stop) => `${stop.color} ${(stop.value / maxValue) * 100}%`)
     .join(", ");
-  console.log(gradientStops);
 
   return (
     <div className="bg-background/50 border-accent absolute top-4 right-4 z-1000 flex w-96 flex-col gap-3 rounded-xl border p-4">
