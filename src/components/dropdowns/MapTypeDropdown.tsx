@@ -9,22 +9,22 @@ import {
 } from "../ui/select";
 
 type Props = {
-  location: string;
-  setLocation: Dispatch<SetStateAction<string>>;
+  mapType: string;
+  setMapType: Dispatch<SetStateAction<string>>;
 };
 
-export default function LocationDropdown({ location, setLocation }: Props) {
+export default function MapTypeDropDown({ mapType, setMapType }: Props) {
   return (
     <Select
-      value={location}
-      onValueChange={(value) => value && setLocation(value)}
+      value={mapType}
+      onValueChange={(value) => value && setMapType(value)}
     >
       <SelectTrigger className="w-45">
         <SelectValue placeholder="" />
       </SelectTrigger>
       <SelectContent className="relative z-9999">
         <SelectGroup>
-          {locations.map((city) => (
+          {mapTypes.map((city) => (
             <SelectItem key={city} value={city}>
               {city}
             </SelectItem>
@@ -35,17 +35,10 @@ export default function LocationDropdown({ location, setLocation }: Props) {
   );
 }
 
-const locations = [
-  "Bangkok",
-  "Tokyo",
-  "Seoul",
-  "Dubai",
-  "Manila",
-  "London",
-  "New York",
-  "Paris",
-  "Berlin",
-  "Madrid",
-  "Rome",
-  "Lisbon",
+const mapTypes = [
+  "clouds_new",
+  "precipitation_new",
+  "pressure_new",
+  "wind_new",
+  "temp_new",
 ];
