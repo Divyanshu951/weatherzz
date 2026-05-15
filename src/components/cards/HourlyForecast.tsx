@@ -1,49 +1,42 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
+import Icon from "../Icon";
+import { getWeather } from "@/api";
 import Card from "./Card";
-import { getWeather } from "../../api";
-import WeatherIcon from "../WeatherIcon";
-import type { Coords } from "../../types";
+import { timeOptions } from "@/utils/timeOptions";
 
 type Props = {
-  coords: Coords;
+  coords: { lat: number; lon: number };
 };
 
 export default function HourlyForecast({ coords }: Props) {
+  const { lat, lon } = coords;
   const { data } = useSuspenseQuery({
-    queryKey: ["weather", coords.lat, coords.lng],
-    queryFn: () => getWeather({ lat: coords.lat, lng: coords.lng }),
+    queryKey: ["weather", lat, lon],
+    queryFn: () =>
+      getWeather({
+        lat,
+        lon,
+      }),
   });
-
   return (
-    <Card
-      title="Hourly Forecast (48 Hours)"
-      childrenClassName="
-    flex gap-4 overflow-x-auto
-    scroll-smooth
-    snap-x snap-mandatory
-    pb-2
-    scrollbar-thin
-    scrollbar-track-transparent
-    scrollbar-thumb-zinc-600
-    hover:scrollbar-thumb-zinc-500
-  "
-    >
-      {data.hourly.map((hour) => (
-        <div
-          key={hour.dt}
-          className="flex min-w-17.5 snap-start flex-col items-center gap-2 rounded-xl bg-zinc-900/40 p-3"
-        >
-          <p>
-            {new Date(hour.dt * 1000).toLocaleTimeString("en-US", {
-              hour: "2-digit",
-              minute: "2-digit",
-              hour12: false,
-            })}
-          </p>
-          <WeatherIcon src={hour.weather[0].icon} />
-          <p className="text-gray-500/90">{Math.round(hour.temp)}&#8457;</p>
-        </div>
-      ))}
+    <Card title="Hourly Forecast (48 Hours)" className="overflow-x-scroll">
+      {/* Hourly forecast */}
+      <div className="flex gap-6">
+        {data.hourly.map((hour) => (
+          <div className="flex flex-col items-center gap-2 p-2" key={hour.dt}>
+            <p className="whitespace-nowrap">
+              {new Date(hour.dt * 1000).toLocaleTimeString(
+                undefined,
+                timeOptions,
+              )}
+            </p>
+            <div className="bg-ocean-blue dark:bg-background rounded-full p-1">
+              <Icon src={hour.weather[0].icon} />
+            </div>
+            <p>{Math.round(hour.temp)}°F</p>
+          </div>
+        ))}
+      </div>
     </Card>
   );
 }

@@ -1,42 +1,42 @@
-import type { Dispatch, SetStateAction } from "react";
 import {
-  SelectValue,
-  SelectTrigger,
   Select,
   SelectContent,
-  SelectGroup,
   SelectItem,
-} from "../ui/select";
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
-type Props = {
-  location: string;
-  setLocation: Dispatch<SetStateAction<string>>;
-};
-
-export default function LocationDropdown({ location, setLocation }: Props) {
+export default function LocationDropdown({
+  onChange,
+  selectedLocation,
+}: {
+  onChange: (location: string) => void;
+  selectedLocation: string;
+}) {
   return (
     <Select
-      value={location}
-      onValueChange={(value) => value && setLocation(value)}
+      defaultValue="Bangkok"
+      value={selectedLocation}
+      onValueChange={(value) => onChange(value)}
     >
       <SelectTrigger className="w-45">
-        <SelectValue placeholder="" />
+        <SelectValue placeholder="Theme" />
       </SelectTrigger>
-      <SelectContent className="relative z-9999">
-        <SelectGroup>
-          {locations.map((city) => (
-            <SelectItem key={city} value={city}>
-              {city}
-            </SelectItem>
-          ))}
-        </SelectGroup>
+      <SelectContent className="z-1001">
+        {selectedLocation === "custom" && (
+          <SelectItem value="custom">Custom</SelectItem>
+        )}
+        {locations.map((location) => (
+          <SelectItem key={location} value={location}>
+            {location}
+          </SelectItem>
+        ))}
       </SelectContent>
     </Select>
   );
 }
 
 const locations = [
-  "Hyderabad",
   "Bangkok",
   "Tokyo",
   "Seoul",

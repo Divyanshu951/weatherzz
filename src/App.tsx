@@ -1,85 +1,30 @@
-import HourlyForecast from "./components/cards/HourlyForecast";
-import DailyForecast from "./components/cards/DailyForecast";
-import CurrentForecast from "./components/cards/CurrentForecast";
-import AdditionalInfo from "./components/cards/AdditionalInfo";
-import Map from "./components/Map";
-import { Suspense, useState } from "react";
-import type { Coords } from "./types";
-import LocationDropdown from "./components/dropdowns/LocationDropdown";
-import { useQuery } from "@tanstack/react-query";
-import { getGeoCode } from "./api";
-import MapTypeDropDown from "./components/dropdowns/MapTypeDropdown";
-import MapLegend from "./components/MapLegend";
-import CurrentSkeleton from "./components/skeletons/CurrentSkeleton";
-import DailySkeleton from "./components/skeletons/DailySkeleton";
-import HourlySkeleton from "./components/skeletons/HourlySkeleton";
-import AdditionalInfoSkeleton from "./components/skeletons/AdditionalInfoSkeleton";
-import SidePanel from "./components/SidePanel";
+import {
+  createContext,
+  useState,
+  type Dispatch,
+  type SetStateAction,
+} from "react";
+import Landing from "./components/Landing";
+import MobileHeader from "./components/MobileHeader";
+import Dashboard from "./Dashboard";
 
-function App() {
-  const [coordinates, setCoords] = useState<Coords>({
-    lat: 28.8,
-    lng: 77.03,
-  });
-  const [location, setLocation] = useState("custom");
-  const [mapType, setMapType] = useState("clouds_new");
-  const [isSidePanelOpen, setIsSidePanelOpen] = useState(true);
+export const SidePanelContext = createContext<{
+  isSidePanelOpen: boolean;
+  setIsSidePanelOpen: Dispatch<SetStateAction<boolean>>;
+}>({
+  isSidePanelOpen: false,
+  setIsSidePanelOpen: () => {},
+});
 
-  const { data: geoCodeData } = useQuery({
-    queryKey: ["geocode", location],
-    queryFn: () => getGeoCode(location),
-  });
-
-  function onMapClick(lat: number, lng: number) {
-    setCoords({ lat, lng });
-    setLocation("custom");
-  }
-
-  const coords =
-    location === "custom"
-      ? coordinates
-      : { lat: geoCodeData?.[0].lat ?? 0, lng: geoCodeData?.[0].lon ?? 0 };
-
+export default function App() {
+  const [isSidePanelOpen, setIsSidePanelOpen] = useState(false);
   return (
     <>
-      <div className="flex w-full flex-col gap-8 lg:w-[calc(100vw-var(--sidebar-width))]">
-        <div className="flex gap-6">
-          <div className="flex items-center gap-4">
-            <h2 className="text-2xl font-semibold">Location: </h2>
-            <LocationDropdown location={location} setLocation={setLocation} />
-          </div>
-          <div className="flex items-center gap-4">
-            <h2 className="text-2xl font-semibold">Map type: </h2>
-            <MapTypeDropDown mapType={mapType} setMapType={setMapType} />
-          </div>
-        </div>
-        <div className="relative">
-          <Map coords={coords} onMapClick={onMapClick} mapType={mapType} />
-          <MapLegend mapType={mapType} />
-        </div>
-        <Suspense fallback={<CurrentSkeleton />}>
-          <CurrentForecast coords={coords} />
-        </Suspense>
-        <Suspense fallback={<HourlySkeleton />}>
-          <HourlyForecast coords={coords} />
-        </Suspense>
-        <Suspense fallback={<DailySkeleton />}>
-          <DailyForecast coords={coords} />
-        </Suspense>
-        <Suspense fallback={<AdditionalInfoSkeleton />}>
-          <AdditionalInfo coords={coords} />
-        </Suspense>
-      </div>
-      <SidePanel
-        coords={coords}
-        isSidePanelOpen={isSidePanelOpen}
-        setIsSidePanelOpen={setIsSidePanelOpen}
-      />
+      <Landing />
+      <SidePanelContext value={{ isSidePanelOpen, setIsSidePanelOpen }}>
+        <MobileHeader />
+        <Dashboard />
+      </SidePanelContext>
     </>
   );
 }
-
-export default App;
-
-// Tailwind
-// data fetching - tanstack query

@@ -1,44 +1,62 @@
-type Props = {
-  mapType: string;
-};
+import { MapTypeEnum } from "@/utils/MapTypeEnum"
 
-export default function MapLegend({ mapType }: Props) {
-  const data = mapTypeData[mapType];
-
-  const maxValue = data.stops.at(-1)?.value ?? 0;
-
-  const gradientStops = data.stops
-    .map((stop) => `${stop.color} ${(stop.value / maxValue) * 100}%`)
-    .join(", ");
-
-  return (
-    <div className="bg-background/50 border-accent absolute top-4 right-4 z-1000 flex w-96 flex-col gap-3 rounded-xl border p-4">
-      <h3 className="text-foreground text-sm font-semibold">{data.title}</h3>
-      <div
-        className="border-accent/70 h-6 w-full rounded-xl border"
-        style={{
-          background: `linear-gradient(to right, ${gradientStops})`,
-        }}
-      />
-      <div className="text-foreground flex justify-between text-xs">
-        <span>{data.stops[0].value}</span>
-        <span>{data.stops[data.stops.length - 1].value}</span>
-      </div>
-    </div>
-  );
+interface MapLegendProps {
+  type: MapTypeEnum
 }
 
-type ColorStop = {
-  value: number;
-  color: string;
-  opacity?: number;
-};
+export default function MapLegend({ type }: MapLegendProps) {
+  const data = mapTypeData[type]
+
+  // Create gradient stops for CSS
+  const gradientStops = data.stops
+    .map(
+      (stop) =>
+        `${stop.color} ${(stop.value / Math.max(...data.stops.map((s) => s.value))) * 100}%`
+    )
+    .join(", ")
+
+  // Format value for display
+  const formatValue = (value: number): string => {
+    if (type === MapTypeEnum.Pressure) {
+      return (value / 1000).toFixed(0) + "k"
+    }
+    return value.toString()
+  }
+
+  return (
+    <div className="bg-background/50 backdrop-blur-sm rounded-xl p-4 shadow-lg border border-accent/70 absolute top-4 right-4 z-1000 w-48 sm:w-96">
+      <h3 className="text-sm font-semibold text-foreground mb-3">
+        {data.title}
+      </h3>
+
+      {/* Gradient bar */}
+      <div className="mb-3">
+        <div
+          className="w-full h-6 rounded-xl border border-accent/70"
+          style={{
+            background: `linear-gradient(to right, ${gradientStops})`,
+          }}
+        />
+      </div>
+
+      {/* Value labels */}
+      <div className="flex justify-between text-xs text-gray-600 dark:text-gray-400">
+        <span>
+          {formatValue(data.stops[0].value)} {data.unit}
+        </span>
+        <span>
+          {formatValue(data.stops[data.stops.length - 1].value)} {data.unit}
+        </span>
+      </div>
+    </div>
+  )
+}
 
 const mapTypeData: Record<
-  string,
+  MapTypeEnum,
   { title: string; unit: string; stops: ColorStop[] }
 > = {
-  precipitation_new: {
+  [MapTypeEnum.Precipitation]: {
     title: "Rain (mm)",
     unit: "mm",
     stops: [
@@ -51,7 +69,7 @@ const mapTypeData: Record<
       { value: 140, color: "rgba(20, 20, 255, 0.9)" },
     ],
   },
-  temp_new: {
+  [MapTypeEnum.Temperature]: {
     title: "Temperature (°C)",
     unit: "°C",
     stops: [
@@ -69,7 +87,7 @@ const mapTypeData: Record<
       { value: 30, color: "rgba(252, 128, 20, 1)" },
     ],
   },
-  clouds_new: {
+  [MapTypeEnum.Cloud]: {
     title: "Clouds (%)",
     unit: "%",
     stops: [
@@ -86,7 +104,7 @@ const mapTypeData: Record<
       { value: 100, color: "rgba(240, 240, 255, 1)" },
     ],
   },
-  pressure_new: {
+  [MapTypeEnum.Pressure]: {
     title: "Pressure (Pa)",
     unit: "Pa",
     stops: [
@@ -101,7 +119,7 @@ const mapTypeData: Record<
       { value: 108000, color: "rgba(198, 0, 0, 1)" },
     ],
   },
-  wind_new: {
+  [MapTypeEnum.Wind]: {
     title: "Wind (m/s)",
     unit: "m/s",
     stops: [
@@ -114,4 +132,10 @@ const mapTypeData: Record<
       { value: 200, color: "rgba(13, 17, 38, 1)" },
     ],
   },
-};
+}
+
+interface ColorStop {
+  value: number
+  color: string
+  opacity?: number
+}

@@ -1,63 +1,100 @@
-import { MapContainer, Marker, TileLayer, useMap } from "react-leaflet";
-import type { Coords } from "../types";
-import { MaptilerLayer } from "@maptiler/leaflet-maptilersdk";
 import { useEffect } from "react";
+import { MapContainer, Marker, TileLayer, useMap } from "react-leaflet";
+import { MaptilerLayer } from "@maptiler/leaflet-maptilersdk";
+import "leaflet/dist/leaflet.css";
+import { MapTypeEnum } from "../utils/MapTypeEnum";
+import LoadingState from "./LoadingState";
+import { useTheme } from "./ThemeProvider";
 
 const API_KEY = import.meta.env.VITE_API_KEY;
+const API_KEY_MAPTILER = import.meta.env.VITE_API_KEY_MAPTILER;
 
-type Props = {
-  coords: Coords;
-  onMapClick: (lat: number, lng: number) => void;
-  mapType: string;
-};
 
-export default function Map({ coords, onMapClick, mapType }: Props) {
-  const { lat, lng } = coords;
+export default function Map({
+  lat,
+  lon,
+  type,
+  onMapClick,
+}: {
+  lat: number;
+  lon: number;
+  type: MapTypeEnum;
+  onMapClick: (lat: number, lon: number) => void;
+}) {
   return (
-    <MapContainer
-      className="z-0"
-      center={[lat, lng]}
-      zoom={18}
-      style={{ height: "1000px", width: "100%" }}
-    >
-      <MapClick onMapClick={onMapClick} coords={coords} />
-      <MapTileLayer />
-      <TileLayer
-        attribution='&copy; <a href="https://openweathermap.org/">OpenWeatherMap</a>'
-        url={`https://tile.openweathermap.org/map/${mapType}/{z}/{x}/{y}.png?appid=${API_KEY}`}
-        opacity={0.7}
-      />
-      <Marker position={[lat, lng]} />
-    </MapContainer>
+    <>
+      {lat && lon ? (
+        <MapContainer
+          center={[lat, lon]}
+          zoom={5}
+          style={{ height: "100%", width: "100%" }}
+        >
+          <MapTilerLayerComponent />
+          <MapCenter lat={lat} lon={lon} />
+          <MapClick onMapClick={onMapClick} />
+          <Marker position={[lat, lon]} />
+          <TileLayer
+            attribution='&copy; <a href="https://openweathermap.org/">OpenWeatherMap</a>'
+            url={`https://tile.openweathermap.org/map/${type}/{z}/{x}/{y}.png?appid=${API_KEY}`}
+            opacity={0.7}
+          />
+        </MapContainer>
+      ) : (
+        <LoadingState />
+      )}
+    </>
   );
 }
 
-function MapClick({ onMapClick, coords }: Omit<Props, "mapType">) {
+// Component to handle map re-centering
+function MapCenter({ lat, lon }: { lat: number; lon: number }) {
   const map = useMap();
-  map.panTo([coords.lat, coords.lng]);
 
-  map.on("click", (e) => {
-    const { lat, lng } = e.latlng;
-    onMapClick(lat, lng);
-  });
+  useEffect(() => {
+    if (lat && lon) {
+      map.panTo([lat, lon], {
+        animate: true,
+        duration: 1,
+        easeLinearity: 0.2,
+      });
+    }
+  }, [lat, lon, map]);
 
   return null;
 }
 
-function MapTileLayer() {
+function MapClick({
+  onMapClick,
+}: {
+  onMapClick: (lat: number, lon: number) => void;
+}) {
   const map = useMap();
+  map.on("click", (e) => {
+    onMapClick(
+      Number(e.latlng.lat.toFixed(7)),
+      Number(e.latlng.lng.toFixed(7)),
+    );
+  });
+  return null;
+}
+
+// Custom component to add MapTiler layer
+function MapTilerLayerComponent() {
+  const map = useMap();
+  const { theme } = useTheme();
 
   useEffect(() => {
-    const tileLayer = new MaptilerLayer({
-      style: "basic-dark",
-      apiKey: "P6NExgpEucds8A4bqwAP",
+    const mtLayer = new MaptilerLayer({
+      apiKey: API_KEY_MAPTILER,
+      style: theme === "light" ? "basic" : "basic-dark",
     });
-    tileLayer.addTo(map);
+
+    mtLayer.addTo(map);
 
     return () => {
-      map.removeLayer(tileLayer);
+      map.removeLayer(mtLayer);
     };
-  }, []);
+  }, [map, theme]);
 
   return null;
 }
