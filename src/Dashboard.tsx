@@ -77,8 +77,8 @@ export default function Dashboard() {
           />
         </div> */}
       </div>
-      <div className="grid grid-cols-1 gap-4 overflow-hidden p-2 md:grid-cols-2 2xl:h-[calc(100vh-72.53px-64px)] 2xl:grid-cols-4 2xl:grid-rows-4">
-        {/* Map */}
+        <div className="grid grid-cols-1 gap-4 p-2 md:grid-cols-2 2xl:min-h-[calc(100vh-72.53px-64px)] 2xl:grid-cols-4 2xl:grid-rows-4">
+          {/* Map */}
         <div className="relative order-1 col-span-1 h-120 overflow-hidden md:col-span-2 2xl:col-span-4 2xl:row-span-2 2xl:h-auto">
           <Map lat={lat} lon={lon} type={mapType} onMapClick={onMapClick} />
           <MapLegend type={mapType} />
