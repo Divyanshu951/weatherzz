@@ -7,7 +7,7 @@ import Sunset from "/src/assets/sunset.svg?react";
 import Wind from "/src/assets/wind.svg?react";
 import Uv from "/src/assets/uv.svg?react";
 import Pressure from "/src/assets/pressure.svg?react";
-import Cloud from "/src/assets/cloud.svg?react";
+import Cloud from "/src/assets/Cloud.svg?react";
 import Arrow from "/src/assets/uparrow.svg?react";
 
 type Props = {
