@@ -2,9 +2,9 @@ import { Suspense, useRef, useState } from "react";
 import Map from "./components/Map";
 import { useQuery } from "@tanstack/react-query";
 import { getGeocode } from "./api";
-import { MapTypeEnum } from "./utils/MapTypeEnum";
+// import { MapTypeEnum } from "./utils/MapTypeEnum";
 import LocationDropdown from "./components/dropdowns/LocationDropdown";
-import MapTypeDropdown from "./components/dropdowns/MapTypeDropdown";
+// import MapTypeDropdown from "./components/dropdowns/MapTypeDropdown";
 import SidePanel from "@/components/SidePanel";
 import DailyForecast from "@/components/cards/DailyForecast";
 import AdditionalWeatherInfo from "@/components/cards/AdditionalWeatherInfo";
@@ -16,13 +16,13 @@ import HourlyForecastSkeleton from "@/components/skeletons/HourlyForecastSkeleto
 import DailyForecastSkeleton from "@/components/skeletons/DailyForecastSkeleton";
 import CurrentWeatherSkeleton from "@/components/skeletons/CurrentWeatherSkeleton";
 import CurrentWeather from "@/components/cards/CurrentWeather";
-import MapLegend from "./components/MapLegend";
+// import MapLegend from "./components/MapLegend";
 
 export default function Dashboard() {
   const [selectedLocation, setSelectedLocation] = useState("Bangkok");
-  const [mapType, setMapType] = useState<MapTypeEnum>(
-    MapTypeEnum.Precipitation,
-  );
+  // const [mapType, setMapType] = useState<MapTypeEnum>(
+  //   MapTypeEnum.Precipitation,
+  // );
   const [mapClickCount, setMapClickCount] = useState(0);
   // const { theme, toggleTheme } = useTheme();
   const latRef = useRef<number>(0);
@@ -65,10 +65,10 @@ export default function Dashboard() {
               selectedLocation={selectedLocation}
             />
           </div>
-          <div className="flex gap-4">
+          {/* <div className="flex gap-4">
             <h1 className="text-2xl font-semibold">Map Type:</h1>
             <MapTypeDropdown onChange={setMapType} />
-          </div>
+          </div> */}
         </div>
         {/* <div className="hidden 2xl:block">
           <ThemeToggle
@@ -80,8 +80,8 @@ export default function Dashboard() {
         <div className="grid grid-cols-1 gap-4 p-2 md:grid-cols-2 2xl:min-h-[calc(100vh-72.53px-64px)] 2xl:grid-cols-4 2xl:grid-rows-4">
           {/* Map */}
         <div className="relative order-1 col-span-1 h-120 overflow-hidden md:col-span-2 2xl:col-span-4 2xl:row-span-2 2xl:h-auto">
-          <Map lat={lat} lon={lon} type={mapType} onMapClick={onMapClick} />
-          <MapLegend type={mapType} />
+          <Map lat={lat} lon={lon} onMapClick={onMapClick} />
+          {/* <MapLegend type={mapType} /> */}
         </div>
         {/* Current weather */}
         <div className="order-2 col-span-1 2xl:row-span-2">
