@@ -2,11 +2,15 @@ import { useContext } from "react"
 import { useTheme } from "./ThemeProvider"
 import Hamburger from "/src/assets/hamburger.svg?react"
 import { ThemeToggle } from "@/components/ui/switch"
-import { SidePanelContext } from "@/App"
+import { AppContext } from "@/App"
 
 export default function MobileHeader() {
   const { theme, toggleTheme } = useTheme()
-  const { setIsSidePanelOpen } = useContext(SidePanelContext)
+  const context = useContext(AppContext)
+  if (!context) {
+    throw new Error("AppContext missing")
+  }
+  const { setIsSidePanelOpen } = context
   return (
     <div className="w-full h-16 bg-background fixed top-0 left-0 z-1001 lg:hidden flex items-center justify-between px-4">
       <div className="ml-auto flex items-center gap-12">

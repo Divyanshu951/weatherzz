@@ -15,13 +15,20 @@ import {
 } from "@/utils/airPollution"
 import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip"
 import AirPollutionSkeleton from "./skeletons/AirPollutionSkeleton"
-import { SidePanelContext } from "@/App"
+import { AppContext } from "@/App"
 import clsx from "clsx"
 import { cn } from "@/lib/utils"
 import ChevronLeft from "/src/assets/ChevronLeft.svg?react"
 
 export default function SidePanel(props: { lat: number; lon: number }) {
-  const { isSidePanelOpen, setIsSidePanelOpen } = useContext(SidePanelContext)
+ const context = useContext(AppContext)
+
+  if (!context) {
+    throw new Error("AppContext missing")
+  }
+
+  const { isSidePanelOpen, setIsSidePanelOpen } = context
+  
   return (
     <div
       className={clsx(
