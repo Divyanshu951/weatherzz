@@ -33,7 +33,7 @@ export default function Map({
 }: {
   lat: number;
   lon: number;
-  type: MapTypeEnum;
+  type?: MapTypeEnum;
   onMapClick: (lat: number, lon: number) => void;
 }) {
   return (
