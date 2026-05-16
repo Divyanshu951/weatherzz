@@ -8,8 +8,8 @@ import MapTypeDropdown from "./components/dropdowns/MapTypeDropdown";
 import SidePanel from "@/components/SidePanel";
 import DailyForecast from "@/components/cards/DailyForecast";
 import AdditionalWeatherInfo from "@/components/cards/AdditionalWeatherInfo";
-import { ThemeToggle } from "@/components/ui/switch";
-import { useTheme } from "@/components/ThemeProvider";
+// import { ThemeToggle } from "@/components/ui/switch";
+// import { useTheme } from "@/components/ThemeProvider";
 import HourlyForecast from "@/components/cards/HourlyForecast";
 import AdditionalInfoSkeleton from "@/components/skeletons/AdditionalInfoSkeleton";
 import HourlyForecastSkeleton from "@/components/skeletons/HourlyForecastSkeleton";
@@ -24,7 +24,7 @@ export default function Dashboard() {
     MapTypeEnum.Precipitation,
   );
   const [mapClickCount, setMapClickCount] = useState(0);
-  const { theme, toggleTheme } = useTheme();
+  // const { theme, toggleTheme } = useTheme();
   const latRef = useRef<number>(0);
   const lonRef = useRef<number>(0);
 
@@ -49,7 +49,7 @@ export default function Dashboard() {
     <div className="w-full overflow-y-scroll p-8 pt-[calc(var(--header-height)+1rem)] lg:w-[calc(100vw-var(--sidebar-width))] lg:pt-8 2xl:h-screen">
       <div className="flex flex-col gap-4 pb-8 2xl:flex-row 2xl:items-center 2xl:justify-between 2xl:gap-0">
         <div className="flex items-center justify-between">
-          <h1 className="!text-4xl !font-bold">Weatherzz Dashboard</h1>
+          <h1 className="text-4xl! font-bold!">Weatherzz Dashboard</h1>
           {/* <div className="hidden lg:block 2xl:hidden">
             <ThemeToggle
               checked={theme === "dark"}
