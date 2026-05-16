@@ -9,21 +9,7 @@ The application provides real-time weather information, hourly and daily forecas
 
 ### Dashboard UI
 
-![Image](https://images.openai.com/static-rsc-4/x93vBL7w392Gzo6U1obN8cmFgCR_TiiOCGETlFiVuJgJPNIf2RtXww45yVCeiGpDRrLi2oFyeeMoamPLQOtHBcH40idIBASAtkCnn3h7u7PfPekwbnJHc4FVoGb7rrM2UALZKZ4GLZ5yUVvEOr0QvlBzqOSX1OQSB5WiIhh7yL2SxkwNnLYf4me3M3zQuXOf?purpose=fullsize)
-
-![Image](https://images.openai.com/static-rsc-4/22A8KaEERQNyJDF32k60PXE9OW4MIzXPHq6i330iwyMImat4hcsBuhNoWUk3DmTwk6QSVkZBHTxJCXQALkjUWJyP2EmCJsQp973MWyCCaTMzgeEtSiVhV31LyX807NAzDykJi2skXIb1RUlzdPDuSmmVxNpGJY4jKQ8t72EzfK1ayzu2hvWnwceMMbDlTVOd?purpose=fullsize)
-
-![Image](https://images.openai.com/static-rsc-4/9TwBNymlGHAh86Ky7ibUTEI1KQJXaivnXQPpqWx6QEpA-NJY-M2P6YhWsZ35_V-hhPX68yAQKGklpW68h0xYHFd5zhUNpZUi677_ujaONOQgwYfo-la0hERmLS8UTnm0yXSQeDJMORfuqs2fmOtOfsE9HzQztt001WD5v4tFK2x8Tp76RBx8wHWFrsTvcpp2?purpose=fullsize)
-
-![Image](https://images.openai.com/static-rsc-4/iNciW16CipRgvz783_U31jbCVKaUUZPT8cGpQ19CMWb-5B0GuRVlK6EOOclKUKvj4OrJoqkuyhQjUkbsIZrC0csjtMDjLmwhR8OFUT2OSmbjs6B_UWdwQig0kPTpWYGYI2RIxfy182iWFpUq9OeyVf6lA-N0uv1ZQUKRvNlFrRkUzgQC60d6GTjGMMxmtcC9?purpose=fullsize)
-
-![Image](https://images.openai.com/static-rsc-4/l6txdCWsEMIjpEZPKbXGHd_xT9YvldfvOWemHyD2Wl3GaZz86H-PtqtklItafJxNVpLKFxLxDUswLxCLVn-CDgbq1gjpyIPDvV2gd9XXynB_WGO14tRQSKZS8XzTMCFnL8SRBC9wM4ZscrRf_aVQBpLjq6lKa-DxMhrmmkC7gS6pf-wTg_HqrPBC0MUrkzBY?purpose=fullsize)
-
-![Image](https://images.openai.com/static-rsc-4/5aIHzRqGotg02k1I2jlJGSEItzK5XLdzQUD1VvYkMjxwQ6p7dkWQ-zZI5s42an6ArOS-ofYD7MN0n4fRMXW_cbaThbuNX8FrgQtEyTsDEDT9GtnF6Ad9itbeOocHFH_J7WXcAV9FvDl44PsaHOqGrsyQ6kRpkhC7UWeZk0YS0c569l0zTsts18FPwG4m5w8m?purpose=fullsize)
-
-![Image](https://images.openai.com/static-rsc-4/0VFJBSo5WDItcZKDJpKtKHK2kn_LdUHMWJrdv9cUX7F3zZFovgCVF6kiuFamAXVJuswdXqUcKNem40LYp8_I7m4fUcXjsf_WexalSVnFEV0FRYr_9rkAXINyyJZ460m69wDdr1eBk1s01R_5ELFkQ1gTcfvpqXIVA7B4NOarnZBNwIJBuM4Fwe-axCevzq-Y?purpose=fullsize)
-
-![Image](https://images.openai.com/static-rsc-4/5Zx5yI1ycbXbvr29qV0QZx2S6A7_Rj9GWb5hr2yPZWfzjKjUQK8dlrkd1oWhnKYkHh-8O3LOBTWG7eExM5kY4BjLbLeSjAz4OrjTuTC6jWPfPmA5pAsDHs0lYcrBYTxJpDi76_CpTMvFTt-4A7hBrp_gM2aO81i8aMnPl1ye0Pm47HvcPTXaBvzSxSvSR8Ul?purpose=fullsize)
+![Image]![alt text](image.png)
 
 ---
 
