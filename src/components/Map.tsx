@@ -2,6 +2,12 @@ import { useEffect } from "react";
 import { MapContainer, Marker, TileLayer, useMap } from "react-leaflet";
 import { MaptilerLayer } from "@maptiler/leaflet-maptilersdk";
 import "leaflet/dist/leaflet.css";
+import L from "leaflet";
+
+import markerIcon2x from "leaflet/dist/images/marker-icon-2x.png";
+import markerIcon from "leaflet/dist/images/marker-icon.png";
+import markerShadow from "leaflet/dist/images/marker-shadow.png";
+
 import { MapTypeEnum } from "../utils/MapTypeEnum";
 import LoadingState from "./LoadingState";
 import { useTheme } from "./ThemeProvider";
@@ -9,6 +15,15 @@ import { useTheme } from "./ThemeProvider";
 const API_KEY = import.meta.env.VITE_API_KEY;
 const API_KEY_MAPTILER = import.meta.env.VITE_API_KEY_MAPTILER;
 
+delete (L.Icon.Default.prototype as L.Icon.Default & {
+  _getIconUrl?: string;
+})._getIconUrl;
+
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl: markerIcon2x,
+  iconUrl: markerIcon,
+  shadowUrl: markerShadow,
+});
 
 export default function Map({
   lat,
