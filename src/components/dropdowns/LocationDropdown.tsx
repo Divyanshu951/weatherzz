@@ -37,16 +37,16 @@ export default function LocationDropdown({
 }
 
 const locations = [
-  "Bangkok",
+  "Mumbai",
+  "Delhi",
+  "Bengaluru",
+  "Hyderabad",
+  "Chennai",
+  "Kolkata",
   "Tokyo",
-  "Seoul",
   "Dubai",
-  "Manila",
   "London",
   "New York",
   "Paris",
-  "Berlin",
-  "Madrid",
-  "Rome",
-  "Lisbon",
+  "Bangkok",
 ];
