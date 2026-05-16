@@ -15,7 +15,7 @@ import {
 } from "@/utils/airPollution"
 import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip"
 import AirPollutionSkeleton from "./skeletons/AirPollutionSkeleton"
-import { SidePanelContext } from "@/app"
+import { SidePanelContext } from "@/App"
 import clsx from "clsx"
 import { cn } from "@/lib/utils"
 import ChevronLeft from "/src/assets/ChevronLeft.svg?react"

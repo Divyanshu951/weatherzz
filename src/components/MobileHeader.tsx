@@ -2,7 +2,7 @@ import { useContext } from "react"
 import { useTheme } from "./ThemeProvider"
 import Hamburger from "/src/assets/hamburger.svg?react"
 import { ThemeToggle } from "@/components/ui/switch"
-import { SidePanelContext } from "@/app"
+import { SidePanelContext } from "@/App"
 
 export default function MobileHeader() {
   const { theme, toggleTheme } = useTheme()
