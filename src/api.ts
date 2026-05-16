@@ -1,11 +1,11 @@
 import { AirPollutionSchema, GeocodeSchema, WeatherDataSchema } from "./types";
 
-const API_KEY = import.meta.env.VITE_API_KEY;
+// const API_KEY = import.meta.env.VITE_API_KEY;
 
 export async function getWeather({ lat, lon }: { lat: number; lon: number }) {
-  const res = await fetch(
-    `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&units=imperial&appid=${API_KEY}`,
-  );
+ const res = await fetch(
+  `/api/weather?lat=${lat}&lon=${lon}`,
+);
   const data = await res.json();
   return WeatherDataSchema.parse(data);
 }
@@ -18,8 +18,8 @@ export async function getGeocode({
   limit?: number;
 }) {
   const res = await fetch(
-    `http://api.openweathermap.org/geo/1.0/direct?q=${location}&limit=${limit}&appid=${API_KEY}`,
-  );
+  `/api/geocode?location=${location}&limit=${limit}`,
+);
   const data = await res.json();
   return GeocodeSchema.parse(data);
 }
@@ -32,8 +32,8 @@ export async function getAirPollution({
   lon: number;
 }) {
   const res = await fetch(
-    `https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${API_KEY}`,
-  );
+  `/api/airpollution?lat=${lat}&lon=${lon}`,
+);
   const data = await res.json();
   return AirPollutionSchema.parse(data);
 }
